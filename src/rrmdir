@@ -1,0 +1,45 @@
+#!/bin/bash
+
+#> synopsis: TODO: write down.
+#> type: TODO: write down.
+#> comment: TODO: write down.
+
+### recursively apply rmdir to all subdirectories.
+### this removes all empty directories and prints a bunch of errors for non-empty directories.
+
+if $(test -z "$@"); then
+	dir='.'
+else
+	dir="$@"
+fi
+
+main() {
+
+	### ask for confirmation.
+	echo 'Recusrively remove all empty subdirectories (y/ctrl-C)?'
+	read confirm
+	if $(test "$confirm" != 'y'); then
+		return 1
+	fi
+
+	### # TODO: make this work for file names with spaces.
+	find "$@" -mindepth 1 -type d |
+		awk '{ print length($0) " " $0; }' $file |
+		sort -r -n |
+		cut -d ' ' -f 2- |
+		while read x; do
+			rmdir "$x"
+		done
+
+	### old approach.
+	### find "$@" -type d |
+	### 	awk '{ print length, $0 }' |
+	### 	sort -rns |
+	### 	head -n-1 |
+	### 	sed "s/[^ ]* //g" |
+	### 	grep -v '/.git/' | # skip any path including .git directories.
+	### 	while read x; do
+	### 		rmdir "$x"
+	### 	done
+}
+main "$dir"

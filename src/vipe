@@ -1,0 +1,43 @@
+#!/bin/bash
+
+#> synopsis: TODO: write down.
+#> type: TODO: write down.
+#> comment: TODO: write down.
+
+### resource: https://stackoverflow.com/questions/10686183/pipe-vim-buffer-to-stdout
+### resource: https://tldp.org/LDP/abs/html/x17974.html
+### resource: https://stackoverflow.com/questions/50715877/prompt-not-printed-after-redirecting-bash-script-output-to-syslog
+
+### save pipe into temp file.
+### NOTE: maybe use 'mktemp' command.
+### NOTE: maybe use '</dev/stdin' to redirect stdin.
+TMPFILE=/tmp/pipecontents
+cat - >"$TMPFILE" || (
+	echo Error: vipe could not cat file.
+	exit $?
+)
+
+### reconnect stdin to the terminal (vim will not print "warning: input is not from a terminal")
+### NOTE: maybe redirect stderr too: 'exec 2>&1'
+exec 4<&0
+exec 7>&1
+exec 0</dev/tty
+exec 1>/dev/tty
+
+### launch the editor.
+#"${EDITOR:-vim}" "$TMPFILE" || (
+vi "$TMPFILE" || (
+	echo Error: vim could not edit file.
+	exit $?
+)
+
+### restore stdin and stdout.
+exec 1>&7 7>&- # restore stout.
+exec 0<&4 4<&- # restore stdin.
+
+### carry on with the pipe.
+cat "$TMPFILE"
+
+### NOTE: maybe use 'shred -zu "$TMPFILE"'.
+### TODO: make this more safe.
+rm "$TMPFILE"

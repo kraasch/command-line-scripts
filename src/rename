@@ -1,0 +1,39 @@
+#! /bin/bash
+
+#> synopsis: TODO: write down.
+#> type: TODO: write down.
+#> comment: TODO: write down.
+
+### resource: https://unix.stackexchange.com/questions/33049/how-to-check-if-a-pipe-is-empty-and-run-a-command-on-the-data-if-it-isnt
+### resource: https://stackoverflow.com/questions/67716566/how-to-break-pipe-if-stdin-is-empty
+
+### TODO: do nothing if file was not edited.
+### TODO: do nothing if vim was left with q command.
+### TODO: do nothing if both files do not have the same number of lines.
+### TODO: do nothing if the edited file is empty.
+### TODO: remove temp files safely (ie without data leaks).
+tmp0='/tmp/rename-files'     # the orignal file.
+tmp1='/tmp/rename-files_cpy' # the edited file.
+
+function main() {
+	# check if the pipe has data.
+	if $(test ! -t 0); then
+		cat - >"$tmp0"
+	else
+		ls >"$tmp0"
+	fi
+	# TODO: if vim was quit with 'q!' command, do not continue pipe, but abort.
+	cat "$tmp0" | vipe >"$tmp1"
+
+	# also remove any empty line in the edited file from the original file.
+	grep --color=NONE -E --line-number '^$' "$tmp1" | tr -d ':' | sort -nr | while read x; do
+		sed -i -e "${x}d" "$tmp0" # remove empty lines in original file.
+	done
+	sed -i '/^$/d' "$tmp1" # remove empty lines in edited file.
+
+	paste -d@ "$tmp0" "$tmp1" | while IFS="@" read -r f1 f2; do
+		eval "mv \"$f1\" \"$f2\""
+	done
+}
+
+main

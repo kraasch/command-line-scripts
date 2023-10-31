@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#> synopsis: cal
+#> type: interactive (bash).
+#> comment: display formatted calendar.
+
+ncal -wbM

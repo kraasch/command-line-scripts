@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#> synopsis: TODO: write down.
+#> type: TODO: write down.
+#> comment: select lines form a file or lines from a pipe and pipe them on.
+
+tmpfile=/tmp/selected-lines.md
+
+function main() {
+	infile="$@"
+
+	if $(test -n "$infile"); then
+		cat "$infile" >"$tmpfile"
+	elif $(test -z "$infile"); then # TODO: check if the data is on the pipe.
+		pipe=$(</dev/stdin)
+		echo "$pipe" >"$tmpfile"
+		#"$tmpfile" </dev/stdin # TODO: try tis.
+	else
+		echo 'No input as pipe or as argument.'
+		return 1
+	fi
+
+	regex=$(
+		cat "$tmpfile" |
+			sed 's/^/ - [ ] /' |
+			vipe |
+			grep -i "^ - \[[xX]\] " |
+			sed 's/^ - \[x\] //' |
+			sed 's/^ - \[X\] //'
+	)
+
+	echo "$regex"
+	rm -f "$tmpfile"
+}
+
+main "$@"

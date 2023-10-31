@@ -1,0 +1,38 @@
+#!/bin/bash
+
+#> synopsis: xpose $in_path $out_name
+#> type: non-interactive shell command (does not block pipe).
+#> comment: creates a link pointing to $in_path in the $HOME/exposed directory (name of the link is specified in $out_name or will default to the input file name).
+
+function my_format() {
+	grep -oE '[^/]*$'
+}
+
+function main() {
+	if $(test -n "$1") && $(test -n "$2"); then
+		in_path="$1"
+		filename="$2"
+	elif $(test -n "$1") && $(test -z "$2"); then
+		in_path="$1"
+		filename=$(echo "$in_path" | my_format)
+	elif $(test -z "$1") && $(test -z "$2"); then
+		# TODO: check if the pipe has something.
+		in_path=$(</dev/stdin)
+		filename=$(echo "$in_path" | my_format)
+	else
+		echo 'No input arguments (not from parameters, nor from pipeline).'
+	fi
+	dir_tmp="${HOME}"/temp/
+	dir_xpo="${HOME}"/temp/exposed
+	mkdir -p "${dir_tmp}"
+	mkdir -p "${dir_xpo}"
+	if $(test -n "$filename"); then
+		ln "$(pwd)/${in_path}" -s "${dir_xpo}/${filename}"
+	fi
+}
+
+if $(test ! -t 0) && $(test -z "$@"); then # check if the pipe has data and command-line doesn't.
+	cat - | while IFS= read -r x; do main "$x"; done
+elif $(test -n "$@") && $(test -t 0); then # check if there is command-line arguments and pipe doesn't.
+	main "$1" "$2"
+fi

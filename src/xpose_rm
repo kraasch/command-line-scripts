@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#> synopsis: TODO: write down.
+#> type: TODO: write down.
+#> comment: TODO: write down.
+
+function main() {
+	dir_xpo="${HOME}"/temp/exposed
+	rm -rf "${dir_xpo}"
+}
+
+main

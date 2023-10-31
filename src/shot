@@ -1,0 +1,24 @@
+#! /bin/bash
+
+#> synopsis: TODO: write down.
+#> type: TODO: write down.
+#> comment: TODO: write down.
+
+# NOTE: for this to work install scrot (eg 'apt install scrot').
+function main() {
+	if [ -t 0 ]; then
+		# program was called from inside a terminal (eg st or tty) take picture at current directory.
+		scrot '%Y-%m-%d_%s_$wx$h.png' -s
+		exit 0
+	else
+		# program was called outside of a terminal (eg from dmenu).
+		TMP_DIR=/tmp/shots
+		END_DIR=~/temp/shots
+		mkdir -p "${END_DIR}"
+		mkdir -p "${TMP_DIR}"
+		# create a screenshot and move the selected ones (m key in sxiv) into specified directory.
+		scrot "${TMP_DIR}/%Y-%m-%d_%s_\$wx\$h.png" -s -e "sxiv \$f -o | xargs -I{} mv {} ${END_DIR}"
+		rmdir -r /tmp/shots/
+	fi
+}
+main
