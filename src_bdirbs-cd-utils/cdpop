@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#> synopsis: cdpop
+#> type: interactive (bash).
+#> comment: remove the last directory bookmark.
+
+function main() {
+	sed -i '$ d' ~/.bashdirbs
+}
+main

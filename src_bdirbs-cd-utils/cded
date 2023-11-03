@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#> synopsis: cded
+#> type: interactive (bash).
+#> comment: edit all directory bookmarks.
+
+function main() {
+	if $(test -f ~/.bashdirbs); then
+		vim ~/.bashdirbs
+	fi
+	echo permanent bookmarks:
+	bdirbs_permanent
+}
+
+main

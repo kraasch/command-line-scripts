@@ -1,0 +1,13 @@
+#!/bin/bash
+
+function bdirbs_permanent() {
+	if $(test -z "$BDIRBS_HIDE_PERM"); then
+		# better add bookmarks without pending slash in the end, so they are equal to pwd's output.
+		echo '/home/kpop/myroot/storedir'
+		echo '/home/kpop/myroot/projdir'
+		echo '/home/kpop/myroot/projdir/machine/machine_control_hub/'
+		echo '/home/kpop/myroot/projdir/machine/machine_data_config/'
+	fi
+}
+
+bdirbs_permanent

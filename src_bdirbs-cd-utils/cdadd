@@ -1,0 +1,27 @@
+#!/bin/bash
+
+#> synopsis: cdadd
+#> type: interactive (bash).
+#> comment: add the current directory as directory bookmark.
+
+function main() {
+
+	# check for command line argument.
+	if $(test -z "$@"); then
+		new=$(pwd)
+	else
+		new="$@"
+	fi
+
+	# check if not already defined.
+	isExists=$(cdls | grep -E "^$new[/]*$")
+	if $(test -n "$isExists"); then
+		echo Already exists.
+		return
+	fi
+
+	# add to temp bookmarks.
+	echo "$new" >>~/.bashdirbs
+}
+
+main "$@"

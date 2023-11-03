@@ -1,0 +1,12 @@
+#! /bin/bash
+
+#> synopsis: TODO: write down.
+#> type: TODO: write down.
+#> comment: TODO: write down.
+
+function git_check() {
+	cd "$1"
+	git status -s
+}
+
+git_check "$@"

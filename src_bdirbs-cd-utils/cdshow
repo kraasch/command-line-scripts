@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#> synopsis: cdshow
+#> type: interactive (bash).
+#> comment: print the two lists of all directory bookmarks (Permanent and temporary).
+
+function main() {
+	echo "PERM BOOKMARKS"
+	bdirbs_permanent
+	echo "TEMP BOOKMARKS"
+	if $(test -f ~/.bashdirbs); then
+		cat ~/.bashdirbs
+	fi
+}
+
+main

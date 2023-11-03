@@ -1,0 +1,9 @@
+#!/bin/bash
+
+list=$(apt list --upgradable 2>/dev/null)
+lines=$(echo "$list" | wc -l)
+if $(test "$lines" -ge 1); then 
+  echo "[X]"
+else 
+  echo "[ ]"
+fi

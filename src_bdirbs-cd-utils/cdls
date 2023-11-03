@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#> synopsis: cdls
+#> type: interactive (bash).
+#> comment: print the list of all directory bookmarks (not including permanent bookmarks).
+
+function main() {
+	(
+		if $(test -f ~/.bashdirbs); then
+			cat ~/.bashdirbs
+		fi
+		bdirbs_permanent
+	) | sort | uniq
+}
+
+main
