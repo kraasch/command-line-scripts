@@ -11,6 +11,8 @@ function main() {
 	if $(test -f ~/.bashdirbs); then
 		cat ~/.bashdirbs
 	fi
+	echo "DUPLICATE BOOKMARKS"
+	bdirbs_check
 }
 
 main
