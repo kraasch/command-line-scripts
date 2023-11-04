@@ -1,6 +1,4 @@
 
-
-
 # to-do list
 
- - [ ] make bdirbs a standalone project.
+ - [X] extract sub projects.

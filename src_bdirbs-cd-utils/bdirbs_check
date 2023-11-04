@@ -1,9 +1,0 @@
-#!/bin/bash
-
-(
-	bdirbs_permanent
-	cat ~/.bashdirbs
-) | sort -n |
-	uniq -c |                  # count occurences.
-	grep -vE '^[ ]* 1 ' |      # get the lines that are not unique.
-	sed -E 's/^[ ]* [0-9]* //' # cut off the counting.
