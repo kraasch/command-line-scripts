@@ -1,7 +1,31 @@
-#!/bin/bash
+#!/usr/bin/python3
 
 #> synopsis: cal
 #> type: interactive (bash).
-#> comment: display formatted calendar.
+#> comment: display formatted calendar (replaces 'ncal -wbM')
 
-ncal -wbM
+from datetime import datetime
+import calendar
+
+curr_year = datetime.now().year
+curr_month = datetime.now().month
+curr_day = datetime.now().day
+
+colored_day = '\033[92m' + '>' + str(curr_day) + '\033[0m' # ANSI escape sequences for colors.
+
+calendar_output = (calendar.month(curr_year, curr_month))
+count_day_in_year = str(curr_year).count(str(curr_day)) # finds occurrences of today's digits inside the year string.
+
+# change today's digits color only in the right place.
+if str(curr_day) in str(curr_year):
+  # paint day within year (first occurrence(s)) and one more occurrence (the curr. day)
+  highlighted_day = calendar_output.replace(str(curr_day), colored_day, count_day_in_year + 1)
+  # remove color of the first occurrence(s) in the year.
+
+  highlighted_day = highlighted_day.replace('\033[92m', '', count_day_in_year)
+  highlighted_day = highlighted_day.replace('\033[92m', '', count_day_in_year)
+
+else:
+  highlighted_day = calendar_output.replace(str(curr_day), colored_day, 1)
+
+print(highlighted_day)
