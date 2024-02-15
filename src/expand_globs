@@ -5,7 +5,7 @@ function main() {
 	if $(test -z "$BDIRBS_HIDE_PERM"); then
 		cat "$DIR" | sed "s|^~|$HOME|" | grep -v '\*'
 		cat "$DIR" | sed "s|^~|$HOME|" | grep '\*' | while read x; do
-			py_expand_glob "$x"
+			expand_glob_py "$x"
 		done
 	fi
 }
