@@ -1,0 +1,27 @@
+#!/usr/bin/python3
+
+#> synopsis: TODO: write.
+#> type:     TODO: write.
+#> comment:  TODO: write.
+
+#from pathlib import Path
+#from collections.abc import Iterable
+##from glob import glob
+#
+#def expandpath(path_pattern) -> Iterable[Path]:
+#    p = Path(path_pattern)
+#    return Path(p.parent).expanduser().glob(p.name)
+
+#PERM='~/.config/bashdirbs/permanent'
+#CUST='~/.config/bashdirbs/custom'
+
+import sys
+from glob import glob
+from pathlib import Path
+
+if len(sys.argv) <= 1:
+    print('Error: no args.')
+    exit()
+val=sys.argv[1]
+paths = [str(Path(p)) for p in glob(val)]
+print('\n'.join(paths))
