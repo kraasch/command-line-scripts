@@ -2,7 +2,7 @@
 
 function main() {
 	if $(test $# -lt 2); then
-		echo "Usage: git_commit_past 'YYYY-MM-DD HH:MM:SS' '<commit-message>' "
+		echo "Usage: git_commit_past 'YYYY-MM-DD HH:MM:SS' '<commit-message>'"
 		return
 	fi
 	export GIT_AUTHOR_DATE="$1"
@@ -10,4 +10,4 @@ function main() {
 	git commit -am "$2"
 }
 
-main
+main "$@"
