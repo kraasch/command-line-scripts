@@ -13,3 +13,4 @@ hub_update:
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/expand_globs)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/expand_globs_py)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/git/git_commit_past)"
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/misc/sxiv_rm)"

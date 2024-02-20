@@ -1,0 +1,23 @@
+#!/bin/bash
+
+DIR="$1"
+
+function main() {
+	if $(test -d "$DIR"); then
+		sxiv -t "$DIR"/*
+		echo 'Delete some of those? (y/ctrl-c)'
+		read answer
+		if $(test "$answer" != "y"); then
+			echo 'User abort.'
+			return 1
+		fi
+		sxiv -t "$DIR"/* -o | xargs -I{} rm "{}"
+		echo "REMAINING"
+		ls "$DIR"
+	else
+		echo 'Usage: sxiv_rm "<dirctory_name>"'
+		return 1
+	fi
+}
+
+main
