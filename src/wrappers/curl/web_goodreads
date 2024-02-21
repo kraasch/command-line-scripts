@@ -1,0 +1,9 @@
+#!/bin/bash
+
+search="$@"
+
+search=$(echo "$search" | sed 's/ /%12/g')
+addr='https://www.goodreads.com/search?utf8=✓&query='
+full="${addr}${search}"
+
+curl -s "$full" | grep -i 'minirating' | head -1 | grep '[^>]*avg' -o
