@@ -1,0 +1,69 @@
+#! /usr/bin/env python3
+
+import sys
+import time
+
+seconds_in_a_day = 60 * 60 * 24
+
+if len(sys.argv) <= 1:
+    print(str(len(sys.argv)))
+    print("Usage: Expects an arithmetic expression containing 'hour:minutes': eg.: python3 addTimes.py '13:03 + 4:59'")
+    sys.exit(1)
+
+def expression_to_seconds(expression):
+    # NOTE: interpret each expression as 'hours + minutes + seconds'.
+    time_units = expression.split(':')
+
+    # if string as wrong length exit.
+    if len(time_units) <= 0:
+        print("Usage: time string too short, expected format is 'HH[:MM[:SS]]'.")
+        sys.exit(1)
+    if len(time_units) >= 4:
+        print("Usage: time string too long, expected format is 'HH[:MM[:SS]]'.")
+        sys.exit(1)
+
+    # if element has length of 1 or 2 make it length 3.
+    # HH       --> HH:00:00
+    # HH:MM    --> HH:MM:00
+    # HH:MM:SS --> HH:MM:SS
+    if len(time_units) == 1:
+        time_units.append('00')
+    if len(time_units) == 2:
+        time_units.append('00')
+
+    # start interpretation of expression.
+    time_units = time_units[::-1] # reverse the array.
+    factor_addition = 60
+    factor = 1
+    total_seconds = 0
+    for u in time_units: # u is SS then MM then HH
+        total_seconds = total_seconds + (int(u) * factor)
+        factor = factor * factor_addition
+    return total_seconds
+
+def main():
+
+    input = sys.argv[1] # get user input string.
+    input = input.replace(' ', '') # remove all spaces from string.
+    expressions = input.split('+') # expressions are separated by plus signs.
+
+    # add up all expressions.
+    total_seconds = 0
+    for e in expressions:
+        expression_in_seconds = expression_to_seconds(e)
+        total_seconds = total_seconds + expression_in_seconds
+
+    # format output string.
+    output   = time.strftime('%H:%M:%S', time.gmtime(total_seconds))
+
+    # if the total_seconds amount to more than days add and overflow string.
+    if total_seconds >= seconds_in_a_day:
+        overflow =  total_seconds // seconds_in_a_day # get number of full days and discard remainder.
+        output = output + f" ({overflow})"
+
+    # print formatted output string.
+    print(output)
+
+if __name__ == '__main__':
+    main()
+
