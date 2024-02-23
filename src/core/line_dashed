@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+function main() {
+	myW=$(tput cols)
+	myW=$(($myW + 1))
+	seq -s" -" $(($myW / 2)) | tr -d '[:digit:]'
+}
+
+main

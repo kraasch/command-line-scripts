@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+arg="$@"
+
+function webRequest() {
+	time="$@"
+	file_name="sunmap_$time.png"
+	if $(test ! -f "$file_name"); then
+		# example web request: "https://www.timeanddate.com/scripts/sunmap.php?iso=20191206T0240" .
+		curl -s "https://www.timeanddate.com/scripts/sunmap.php?iso=$@" >"$file_name"
+		sxiv "$file_name"
+	fi
+	echo "Remove file? (Y/n)"
+	read remove
+	if $(test "$remove" != "n"); then
+		rm "$file_name"
+	fi
+}
+
+if $(test -z "$arg"); then
+
+	time=$(date +'%y%m%dT%H%M')
+	webRequest "$time"
+
+elif $(test "$arg" = "now"); then
+
+	time=$(date +'%y%m%dT%H%M')
+	webRequest "$time"
+
+else
+
+	time="$arg"
+	webRequest "$time"
+
+fi

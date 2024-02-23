@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+### SOURCE: https://stackoverflow.com/questions/263890/how-do-i-find-the-width-height-of-a-terminal-window .
+### SOURCE: https://stackoverflow.com/questions/5349718/how-can-i-repeat-a-character-in-bash .
+function main() {
+	myW=$(tput cols)
+	myW=$(($myW + 1))
+	seq -s"_" $myW | tr -d '[:digit:]'
+}
+
+main
