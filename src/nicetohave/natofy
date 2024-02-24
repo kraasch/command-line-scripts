@@ -1,0 +1,98 @@
+#! /usr/bin/env python3
+
+import sys
+
+SPACE = ' '
+TAB = '\t'
+MARKER = '_'
+nato = {
+    # Typographic Characters.
+    ' ' : 'New-Word',
+    '-' : 'Dash-Sign',
+    # Actual NATO Alphabet.
+    'a' : 'Alfa',
+    'b' : 'Bravo',
+    'c' : 'Charlie',
+    'd' : 'Delta',
+    'e' : 'Echo',
+    'f' : 'Foxtrot',
+    'g' : 'Golf',
+    'h' : 'Hotel',
+    'i' : 'India',
+    'j' : 'Juliett',
+    'k' : 'Kilo',
+    'l' : 'Lima',
+    'm' : 'Mike',
+    'n' : 'November',
+    'o' : 'Oscar',
+    'p' : 'Papa',
+    'q' : 'Quebec',
+    'r' : 'Romeo',
+    's' : 'Sierra',
+    't' : 'Tango',
+    'u' : 'Uniform',
+    'v' : 'Victor',
+    'w' : 'Whiskey',
+    'x' : 'X-ray',
+    'y' : 'Yankee',
+    'z' : 'Zulu',
+    'A' : 'Uppercase-Alfa',
+    'B' : 'Uppercase-Bravo',
+    'C' : 'Uppercase-Charlie',
+    'D' : 'Uppercase-Delta',
+    'E' : 'Uppercase-Echo',
+    'F' : 'Uppercase-Foxtrot',
+    'G' : 'Uppercase-Golf',
+    'H' : 'Uppercase-Hotel',
+    'I' : 'Uppercase-India',
+    'J' : 'Uppercase-Juliett',
+    'K' : 'Uppercase-Kilo',
+    'L' : 'Uppercase-Lima',
+    'M' : 'Uppercase-Mike',
+    'N' : 'Uppercase-November',
+    'O' : 'Uppercase-Oscar',
+    'P' : 'Uppercase-Papa',
+    'Q' : 'Uppercase-Quebec',
+    'R' : 'Uppercase-Romeo',
+    'S' : 'Uppercase-Sierra',
+    'T' : 'Uppercase-Tango',
+    'U' : 'Uppercase-Uniform',
+    'V' : 'Uppercase-Victor',
+    'W' : 'Uppercase-Whiskey',
+    'X' : 'Uppercase-X-ray',
+    'Y' : 'Uppercase-Yankee',
+    'Z' : 'Uppercase-Zulu',
+    '0' : 'nadazero',
+    '1' : 'unaone',
+    '2' : 'bissotwo',
+    '3' : 'terrathree',
+    '4' : 'kartefour',
+    '5' : 'pantafive',
+    '6' : 'soxisix',
+    '7' : 'setteseven',
+    '8' : 'oktoeight',
+    '9' : 'novenine',
+    # Special Characters.
+    '+' : 'Plus-Sign',
+    '&' : 'Ampersand',
+    '_' : 'Underscore',
+    '$' : 'Dollar-Sign'
+}
+
+inputText = SPACE.join(sys.argv[1:])
+WORDS_PER_LINE = 3
+i = 0
+
+for char in inputText:
+    i = i + 1
+    if char in nato:
+        asNato = nato[char]
+        print(f'{asNato}{TAB}', end='')
+    else:
+        print(f'{MARKER}{char}{MARKER}{TAB}', end='')
+    if (i == WORDS_PER_LINE):
+        i = 0
+        print()
+print()
+
+

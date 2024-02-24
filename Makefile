@@ -15,6 +15,7 @@ hub_update:
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/xpose)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/xpose_rm)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/add_hms)"
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/nicetohave/natofy)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/curl/web_goodreads)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/curl/web_sunmap)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/git/git_commit_past)"
