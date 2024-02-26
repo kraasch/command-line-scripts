@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
-# Tatoeba.org lookup for terminal using Python3. https://wtools.io/paste-code/b4JO
-# as a test run 'python3 search.py "Verhaltet euch"' on terminal
+# Tatoeba.org lookup for terminal using Python3.
+# as a test run 'python3 search.py "Verhaltet euch"' on terminal.
 
 # parse arguemnts.
 import sys
