@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# the first string on the command-line is the search term.
+search_expression="$1"
+
+# take first line, then take everything backward until last double quotes.
+function take_first_and_grep_id() {
+	head -1 | grep -o '[^"]*$'
+}
+
+# the string which USUALLY is before the first search result.
+function find_hits() {
+	grep -oE 'enablePacfLoggingWeb[^ ]*true[^ ]*videoRenderer[^ ]*videoId.{14}'
+}
+
+# format search_expression (turn spaces into pluses).
+without_spaces=$(echo "${search_expression}" | sed "s/[^A-Za-z0-9][^A-Za-z0-9]*/+/g")
+
+# put together formatted search expression and youtube's search query.
+search_url="https://www.youtube.com/results?search_query=${without_spaces}"
+
+# make web request.
+curl_result=$(curl -s "${search_url}")
+
+# extract id.
+id_only=$(echo "$curl_result" | find_hits | take_first_and_grep_id)
+
+# print.
+echo "${search_expression} ---> ${id_only}"
