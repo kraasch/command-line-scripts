@@ -1,0 +1,38 @@
+#!/usr/bin/python3
+
+# Tatoeba.org lookup for terminal using Python3. https://wtools.io/paste-code/b4JO
+# as a test run 'python3 search.py "Verhaltet euch"' on terminal
+
+# parse arguemnts.
+import sys
+args_len=len(sys.argv)
+if args_len <= 1:
+    print(f"Expects 1 argument, given {args_len}. Usage: 'python3 tatoeba_lookup.py <search_phrase>'.")
+    sys.exit(1)
+
+SEARCH = str(sys.argv[1])
+
+# imports.
+import requests
+import re
+
+def web_req():
+    A = '&quot;id&quot;:'
+    B = ',&quot;text&quot;:&quot;'
+    C = '&quot;,&quot;lang&quot;:&quot;deu&quot;,&quot;correctness&quot;:0,&quot;script&quot;:null,&quot;license&quot;:&quot;'
+    response = requests.get(f"https://tatoeba.org/eng/sentences/search?from=&query={SEARCH}&to=")
+    response = response.text
+    response = re.findall(f"{A}[0-9]+{B}.*{C}", response)
+    
+    for example in response:
+        example = re.sub(f"^{A}[0-9]+{B}", "", example)
+        example = re.sub(f"{C}$", "", example)
+        example = example.encode().decode('unicode-escape')
+        print(str(example))
+
+if __name__ == '__main__':
+    web_req()
+
+
+	python3 search.py "Verhaltet euch"
+
