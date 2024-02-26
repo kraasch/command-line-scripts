@@ -33,6 +33,3 @@ def web_req():
 if __name__ == '__main__':
     web_req()
 
-
-	python3 search.py "Verhaltet euch"
-
