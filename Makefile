@@ -27,6 +27,8 @@ hub_update:
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/curl/web_yt_get_id)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/git/git_commit_past)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/misc/sxiv_rm)"
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/ytdlp/yt_id2duration)"
 
 mytest:
 	bash ./test/add_hms_test.sh
+

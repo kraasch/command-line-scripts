@@ -1,0 +1,51 @@
+#!/usr/bin/python3
+
+# FOR TESTS:
+# the command 'python3 ./src/duration.py wQ8BIBpya2k' ...
+# should result in '1234s (00:20:34)hms'.
+
+# parse input.
+import sys
+argument_num = len(sys.argv)
+if argument_num != 2:
+    print(f"Expecting 1 argument, given {argument_num}. Usage: python3 duration.py <video_id>")
+    exit(1)
+video_id  = sys.argv[1]
+
+# load imports.
+import yt_dlp as ytdl
+import pandas as pd
+import time
+
+# set variables.
+ytdl_opts = {
+    # all options: https://pypi.org/project/yt-dlp/
+    # formerly at: https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/YoutubeDL.py#L141
+    'quiet': True,
+    'skip_download': True,
+    #'forceduration': True,
+}
+
+# define functions.
+def s_to_hms(seconds):
+    # TODO: define what happens if hours overflow into days (find a better conversion method).
+    return time.strftime("%H:%M:%S", time.gmtime(seconds))
+
+def extract_id(id):
+    duration = -1
+    url=f'https://youtu.be/{id}'
+    hms = '0'
+    with ytdl.YoutubeDL(ytdl_opts) as dl:
+        dictMeta = dl.extract_info(f"{url}", download=True)
+        duration = dictMeta['duration'] # duration in seconds
+    duration_str = str(duration)
+    if duration_str.isnumeric():
+        hms = s_to_hms(duration)
+    else:
+        duration = 0
+    print(f"{duration}s ({hms})hms")
+
+
+if __name__ == '__main__':
+    extract_id(video_id)
+
