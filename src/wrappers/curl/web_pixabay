@@ -1,0 +1,14 @@
+#! /bin/bash
+
+BEG='https://pixabay.com/api/?key=19800860-fd81fde52b5686725fdcf6309&q='
+END='&image_type=photo'
+PREFIX_1='largeImageURL":"'
+PREFIX_2='https:'
+
+word="$1"
+if $(test -z "$word"); then
+	word='toast'
+fi
+
+images=$(curl -s "$BEG${word}$END" | grep -oE "$PREFIX_1[^\"]*" | grep -oE "$PREFIX_2[^\"]*" | head -5)
+echo "$images"
