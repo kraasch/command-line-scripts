@@ -31,6 +31,12 @@ hub_update:
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/python_requests/web_tatoeba)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/ytdlp/yt_id2duration)"
 
+init:
+	rm -f "${HOME}"/.local/bin/expand_globs
+	rm -f "${HOME}"/.local/bin/expand_globs_py
+	ln "$(realpath ./src/core/expand_globs)"    -s "${HOME}"/.local/bin/expand_globs
+	ln "$(realpath ./src/core/expand_globs_py)" -s "${HOME}"/.local/bin/expand_globs_py
+
 mytest:
 	bash ./test/add_hms_test.sh
 
