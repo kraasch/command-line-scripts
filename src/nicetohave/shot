@@ -1,0 +1,21 @@
+#! /bin/bash
+
+# NOTE: for this to work install scrot (eg. with 'apt install scrot').
+
+if [ -t 1 ]; then
+	# Program was called from inside a terminal (eg. st or tty) take picture at current directory.
+	scrot '%Y-%m-%d_%s_$wx$h.png' -s
+	exit 0
+fi
+
+# Program was called outside of a terminal (eg. from dmenu).
+
+function main() {
+	mkdir -p ~/temp/shots/
+	mkdir -p /tmp/shots/
+	# Create a screen shot and move the selected ones (m key in sxiv) into specified directory.
+	scrot '/tmp/shots/%Y-%m-%d_%s_$wx$h.png' -s -e 'sxiv $f -o | xargs -I{} mv {} ~/temp/shots/'
+	# rmdir -r /tmp/shots/ # NOTE: comment in to immediately clear temporary buffer.
+}
+
+main

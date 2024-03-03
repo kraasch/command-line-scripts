@@ -1,0 +1,84 @@
+#! /bin/bash
+# sources: https://www.linuxcommand.org/lc3_adv_tput.php
+tput civis
+stty -echo
+i=10
+TOTAL=$i
+START_DATETIME=-1
+function my_format() {
+	MINS=$(echo "$@ / 60" | bc)
+	SECS=$(echo "$@ % 60" | bc)
+	printf "%02d:%02d" "$MINS" "$SECS"
+}
+function my_print() {
+	printf "\033c" # TODO: remove the flickering when whole screen clears.
+	HEIGHT=$(tput lines)
+	NEWLINES=$(python3 -c "print((chr(92)+'n')*int(($HEIGHT)/2-4))")
+	printf "$NEWLINES"
+	DATESTR=$(my_format "$i" | figlet -k -f script)
+	LONGEST=$(echo "${DATESTR}" | wc -L)
+	WIDTH=$(tput cols)
+	PADDING=$(python3 -c "print(' '*int(${WIDTH}/2-${LONGEST}/2))")
+	echo "${DATESTR}" | sed "s/^/${PADDING}/g"
+}
+function my_bell() {
+	espeak "DONE"
+}
+function my_start() {
+	TOTAL=$i
+	START_DATETIME=$(date +%s)
+	CURRENT_DATETIME=$(date +%s)
+	SECS_ELAPSED=$((CURRENT_DATETIME - START_DATETIME))
+	SECS_REMAIN=$((TOTAL - SECS_ELAPSED))
+	while $(test $SECS_REMAIN -ge 0); do
+		my_print
+		# TODO: read in the background.
+		#read -n1 INPUT
+		#if $(test "$INPUT" = "q"); then # reset.
+		#	i=TOTAL
+		#	return
+		#fi
+		sleep .9 # TODO: do not count down time, just measure time once in start and substract current time.
+		CURRENT_DATETIME=$(date +%s)
+		SECS_ELAPSED=$((CURRENT_DATETIME - START_DATETIME))
+		SECS_REMAIN=$((TOTAL - SECS_ELAPSED))
+		i=$SECS_REMAIN
+	done
+	my_bell
+	i=$TOTAL
+}
+while true; do
+	my_print
+	read -n1 INPUT
+	if $(test "$INPUT" = "j"); then # down by 1sec
+		if $(test $i -ge 1); then
+			i=$((i - 1))
+		fi
+	elif $(test "$INPUT" = "J"); then # down by 10sec
+		if $(test $i -ge 10); then
+			i=$((i - 10))
+		fi
+	elif $(test "$INPUT" = "l"); then # down by 1min
+		if $(test $i -ge 60); then
+			i=$((i - 60))
+		fi
+	elif $(test "$INPUT" = "L"); then # down by 10min
+		if $(test $i -ge 600); then
+			i=$((i - 600))
+		fi
+	elif $(test "$INPUT" = "k"); then # up by 1sec
+		i=$((i + 1))
+	elif $(test "$INPUT" = "K"); then # up by 10sec
+		i=$((i + 10))
+	elif $(test "$INPUT" = "h"); then # up by 1min
+		i=$((i + 60))
+	elif $(test "$INPUT" = "H"); then # up by 10min
+		i=$((i + 600))
+	elif $(test "$INPUT" = "q"); then # quit
+		break
+	elif $(test "$INPUT" = ""); then # start timer
+		my_start
+	fi
+done
+stty echo
+tput cnorm
