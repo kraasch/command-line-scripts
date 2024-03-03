@@ -1,0 +1,18 @@
+#! /bin/bash
+
+function myclock() {
+	HEIGHT=$(tput lines)
+	NEWLINES=$(python3 -c "print((chr(92)+'n')*int(($HEIGHT)/2-4))")
+	printf "$NEWLINES"
+	DATESTR=$(date +%H:%M | figlet -k -f script)
+	LONGEST=$(echo "${DATESTR}" | wc -L)
+	WIDTH=$(tput cols)
+	PADDING=$(python3 -c "print(' '*int(${WIDTH}/2-${LONGEST}/2))")
+	echo "${DATESTR}" | sed "s/^/${PADDING}/g"
+}
+
+typeset -fx myclock
+
+tput civis
+watch -t -n 1.0 -x bash -c 'myclock'
+tput cnorm
