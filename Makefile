@@ -21,6 +21,7 @@ hub_update:
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/helpers/python/py_requirements_create)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/helpers/python/py_requirements_install)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/nicetohave/natofy)"
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/nicetohave/clk)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/add_hms)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/curl/web_goodreads)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/curl/web_sunmap)"
