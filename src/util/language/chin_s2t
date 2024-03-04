@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+# wraps this: https://github.com/BYVoid/OpenCC
+
+import opencc
+import sys
+
+if len(sys.argv) >= 3:
+    print('Usage: echo "<chinese_phrase>" | chin_s2t [-i, --invert]')
+    sys.exit(1)
+# read option from command line arguments.
+input = ''
+if len(sys.argv) == 2:
+    input = sys.argv[1]
+
+# chose mode.
+converter = None
+if input == '--invert' or input == '-i':
+    converter = opencc.OpenCC('t2s.json')
+else:
+    converter = opencc.OpenCC('s2t.json')
+
+# convert every line from STDIN.
+for line in sys.stdin:
+    res = converter.convert(line)
+    sys.stdout.write(res)
+
