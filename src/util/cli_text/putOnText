@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+### DESCRIPTION: puts string into the middle of a pattern .
+### NOTE: does not work with backspaces '\' within pattern since those are not treated as simple characters .
+### NOTE: use like "cat pattern.txt | myPutTextOntoPattern "Text to put onto pattern." .
+### TODO: make it work with patterns that inlcude backslashes also .
+### TODO: do some validity checks on size of pattern (ignore small patterns) .
+### TODO: do some validity checks on size of pattern and length of string to put (warn about too short strings) .
+
+function myPutTextOntoPattern() {
+	myText="$1"
+	myTitle=$(date "+%Y-%m-%d")_tmp-banner
+	myPath="$HOME/temp/$myTitle"
+	myLen=${#myText}
+
+	while read line; do
+		echo "$line" >>$myPath
+	done </dev/stdin
+
+	myW=80
+	myH=$(cat $myPath | wc -l)
+	myLine=$((myH / 2))
+	halfLen=$(($myLen / 2))
+	myCol=$(($myW / 2))
+	myCol=$(($myCol - $halfLen))
+
+	cat "$myPath" | sed -Er "${myLine}s,^(.{$myCol}).{$myLen}(.*)$,\1${myText}\2,"
+	rm "$myPath"
+}
+
+myPutTextOntoPattern "$@"
+
+# IDEA: overlay smaller file to larger file.
+# look for longest line in larger file, fill all lines with spaces to have length of largest line.
+# do same with smaller file. two rectangles are resulting.
+# center smaller rectangle on larger one. this creates 9 sections on the larger file.
+# cut larger file into 9 pieces, assemble back together, but replace center piece by smaller file.

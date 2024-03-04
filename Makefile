@@ -35,6 +35,9 @@ hub_update:
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/misc/sxiv_rm)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/python_requests/web_tatoeba)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/ytdlp/yt_id2duration)"
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util//cli_text/box)"
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util//cli_text/comment)"
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util//cli_text/putOnText)"
 
 init:
 	rm -f "${HOME}"/.local/bin/expand_globs

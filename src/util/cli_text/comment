@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+commentChars="$1" # eg: //, #, ;, etc .
+commentText="$2"  # eg: "Hello World!" .
+commentLen=${#commentChars}
+codeLen=80
+lineLen=$(($codeLen - $commentLen))
+box $lineLen 3 | putOnText "$commentText" | sed "s,^,$commentChars,"

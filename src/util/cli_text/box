@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+# source: https://en.wikipedia.org/wiki/Box-drawing_character .
+#┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#┃                 This script draws boxes like this one.                      ┃
+#┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+# MORE EXAMPLES:
+#┏━━━━━━━━━━━━━━━━┓
+#┃box 2 2┃ box 2 2┃
+#┃┏┓     ┃ ┏┓     ┃
+#┃┗┛     ┃ ┗┛     ┃
+#┃━━━━━━━ ━━━━━━━━┃
+#┃box 2 3┃ box 3 2┃
+#┃┏┓     ┃ ┏━┓    ┃
+#┃┃┃     ┃ ┗━┛    ┃
+#┃┗┛     ┃        ┃
+#┗━━━━━━━━━━━━━━━━┛
+
+# print one line based on start, mid, end character.
+function printLine() {
+	printf "$1"
+	if $(test $n -gt 2); then
+		n_copy=$((n - 2))
+		printf "$2%.0s" $(seq $n_copy)
+	fi
+	printf "$3\n"
+}
+
+function main() {
+	if $(test -z "$1") || $(test -z "$2") || $(test -n "$3"); then
+		echo "Usage: 'box $(tput cols) 3'."
+		echo "Usage: 'box \$(tput cols) 3'."
+		exit 1
+	fi
+	# NOTE: boxes have always positive length edges.
+	# input will be 0 per default if not a convertable positive integer.
+	n="$1"
+	m="$2"
+	n="0$n"
+	m="0$m"
+	n=$(echo "$n" | sed 's/[^0-9]//g' | sed 's/^0[0]*/0/' | sed 's/^0\([0-9]\)/\1/')
+	m=$(echo "$m" | sed 's/[^0-9]//g' | sed 's/^0[0]*/0/' | sed 's/^0\([0-9]\)/\1/')
+	# make a box.
+	printLine '┏' '━' '┓'
+	while $(test $m -gt 2); do
+		printLine '┃' ' ' '┃' "$n"
+		m=$((m - 1))
+	done
+	printLine '┗' '━' '┛'
+	printf '\n'
+}
+
+main "$@"
