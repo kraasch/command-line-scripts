@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+tr ' ' '\n' | xargs -I{} echo {} | perl -lpe '$_=pack"B*",$_' | tr -d '\n'

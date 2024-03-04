@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+tr ' ' '_' | grep -o . | xargs -I{} echo {} | perl -lpe '$_=unpack"B*"'
+
