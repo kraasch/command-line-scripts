@@ -19,7 +19,7 @@ hub_update:
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/cli_text/putOnText)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/hack/toAscii)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/hack/toBinary)"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/language/chin_s2t)"
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/language+culture/chin_s2t)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/math/add_hms)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/math/rule-of-three)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/nicetohave/clk)"
