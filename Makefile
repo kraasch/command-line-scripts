@@ -9,7 +9,6 @@ hub_update:
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/line_dashed)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/rename)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/rrmdir)"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/sel)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/shot)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/vipe)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/xpose)"
@@ -43,6 +42,10 @@ hub_update:
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/python/py_requirements_install)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/python_requests/web_tatoeba)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/ytdlp/yt_id2duration)"
+	@#######################################
+	@#              ARCHIVED               #
+	@#######################################
+	@#hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/sel)"
 
 hub_init:
 	rm -f "${HOME}"/.local/bin/expand_globs
