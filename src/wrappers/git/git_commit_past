@@ -1,5 +1,13 @@
 #!/bin/bash
 
+### NOTE: alternatively use this.
+# function git_commit_with_date() {
+#   # Usage: git_commit_with_date '2020-10-02' 'Initial commit.'
+#   isodate="$1"
+#   message="$2"
+#   GIT_AUTHOR_DATE=$(date -d"$isodate") GIT_COMMITTER_DATE="$GIT_AUTHOR_DATE" git commit -m "$message"
+# }
+
 function main() {
 	if $(test $# -lt 2); then
 		echo "Usage: git_commit_past 'YYYY-MM-DD HH:MM:SS' '<commit-message>'"
