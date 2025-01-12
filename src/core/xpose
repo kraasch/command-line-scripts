@@ -1,8 +1,6 @@
 #!/bin/bash
 
-#> synopsis: xpose $in_path $out_name
-#> type: non-interactive shell command (does not block pipe).
-#> comment: creates a link pointing to $in_path in the $HOME/exposed directory (name of the link is specified in $out_name or will default to the input file name).
+# creates a link pointing to $in_path in the $HOME/exposed directory (name of the link is specified in $out_name or will default to the input file name).
 
 function my_format() {
 	grep -oE '[^/]*$'

@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 
-#> synopsis: cal
-#> type: interactive (bash).
-#> comment: display formatted calendar (replaces 'ncal -wbM')
+# display formatted calendar (replaces 'ncal -wbM')
 
 from datetime import datetime
 import calendar

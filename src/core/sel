@@ -1,8 +1,6 @@
 #!/bin/bash
 
-#> synopsis: TODO: write down.
-#> type: TODO: write down.
-#> comment: select lines form a file or lines from a pipe and pipe them on.
+# select lines form a file or lines from a pipe and pipe them on.
 
 tmpfile=/tmp/selected-lines.md
 

@@ -1,9 +1,5 @@
 #!/bin/bash
 
-#> synopsis: TODO: write down.
-#> type: TODO: write down.
-#> comment: TODO: write down.
-
 ### recursively apply rmdir to all subdirectories.
 ### this removes all empty directories and prints a bunch of errors for non-empty directories.
 

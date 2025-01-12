@@ -1,9 +1,5 @@
 #!/bin/bash
 
-#> synopsis: TODO: write down.
-#> type: TODO: write down.
-#> comment: TODO: write down.
-
 ### resource: https://stackoverflow.com/questions/10686183/pipe-vim-buffer-to-stdout
 ### resource: https://tldp.org/LDP/abs/html/x17974.html
 ### resource: https://stackoverflow.com/questions/50715877/prompt-not-printed-after-redirecting-bash-script-output-to-syslog
