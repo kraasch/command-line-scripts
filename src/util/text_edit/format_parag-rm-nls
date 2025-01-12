@@ -1,0 +1,27 @@
+#!/bin/bash
+
+function main() {
+	INFILE="$@"
+	if $(test -z "$INFILE"); then
+		echo "Usage: 'format_rm-nl-within-paragraphs <file-name.txt>'."
+		return 1
+	fi
+
+	UNIQ=$(date +%N)
+	SEP="#_$UNIQ"
+	TMPFILE="/tmp/bookconvfile_$UNIQ"
+	cat "$INFILE" |
+		sed "s,^$,$SEP," |
+		tr "\n" " " |
+		sed "s,$SEP,\n\n,g" \
+			>"$TMPFILE"
+
+	cat "$TMPFILE" | less
+	echo "Is '$TMPFILE' good? (Y/ctrl-c)"
+	read
+	mv "$INFILE" "$INFILE".old
+	mv "$TMPFILE" "$INFILE"
+
+}
+
+main "$@"

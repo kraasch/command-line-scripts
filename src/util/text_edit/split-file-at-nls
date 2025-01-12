@@ -1,0 +1,4 @@
+#! /bin/bash
+
+filename="$@"
+awk -v RS= '{print > ("SPLIT_FILE_" NR ".txt")}' "$filename"

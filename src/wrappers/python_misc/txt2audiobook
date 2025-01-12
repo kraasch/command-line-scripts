@@ -1,0 +1,99 @@
+#!/bin/bash
+
+# TODO: write script that converts epub to readable txts.
+
+################################################################################
+### This is a quick and dirty script that can play books in text format as if  #
+### they were audio books using the mimic3 text-to-speech program.             #
+### This reduces the file size for stored books enormously by locally          #
+### generating the audio on the fly. -- This is AI, this is the future!!!^1    #
+################################################################################
+### This scripts reads text files which are in a readable format.              #
+### it does this paragraph by paragraph and maintains a file containing the    #
+### currently read paragraph and the total amount.                             #
+### The file ends in '.now-at' and has the same ending as the input text file. #
+### The script rewrites the total paragraphs and the currently read when out   #
+### of sync and when another chapter has played.                               #
+### The script resumes playin the text file at the current read paragraph.     #
+################################################################################
+### FOOTNOTES: ^1 is ironic.                                                   #
+################################################################################
+
+function read_text() {
+	mimic3 --voice "en_UK/apope_low"
+}
+
+function play_chapter() {
+	at="$1"
+	INFILE="$2"
+	STATEFILE="$3"
+	total="$4"
+
+	source ${HOME}/install/python3_mimic3/bin/activate
+
+	# TODO: maybe use different type of loop, see https://stackoverflow.com/questions/1521462/looping-through-the-content-of-a-file-in-bash/ .
+	i=0
+	while read -u 3 line; do
+		echo "loop enter (loop at $i, playing $at)."
+		if $(test -z "$line"); then
+			continue
+		fi
+		i=$((i + 1))
+		if $(test $i = $at); then
+			### update the statefile by writing the index of the next current paragraph.
+			at=$(($i + 1))
+			echo "$at/$total" >"$STATEFILE"
+			### translate and play the current paragraph.
+			echo "$line" | read_text
+			### wait a bit and continue with next paragraph.
+			sleep 0.5 # NOTE: or use 'read userinput', for an interrupt for each chapter.
+		fi
+	done 3<"$INFILE"
+}
+
+function main() {
+	INFILE="$@"
+	if $(test -z "$INFILE"); then
+		echo "Usage: 'bash read.sh <file-name.txt>'."
+		return 1
+	fi
+
+	STATEFILE="${INFILE}.now-at"
+
+	# number of paragraphs.
+	i=0
+	while read line; do
+		if $(test -z "$line"); then
+			continue
+		fi
+		i=$((i + 1))
+	done <"$INFILE"
+
+	# check current state and update or renew.
+	if $(test -f "$STATEFILE"); then
+		# state file exists.
+		at=$(cat "$STATEFILE" | cut -d'/' -f 1)
+		total=$(cat "$STATEFILE" | cut -d'/' -f 2)
+		if
+			! $(test -z "$at") &
+			! $(test -z "$total")
+		then
+			# there is a value for both (at and total).
+			# check if total values match
+			if ! $(test "$total" -eq "$i"); then
+				# total needs update.
+				echo "0/$i" >"$STATEFILE"
+				echo "Statefile '$STATEFILE' updated."
+				return 0
+			fi
+		fi
+		play_chapter "$at" "$INFILE" "$STATEFILE" "$total"
+	else
+		# state file does not exist.
+		echo "0/$i" >"$STATEFILE"
+		echo "Statefile '$STATEFILE' updated."
+		return 0
+	fi
+}
+
+main "$@"
