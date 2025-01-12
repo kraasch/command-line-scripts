@@ -2,13 +2,13 @@
 SHELL=/bin/bash
 
 hub_update:
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/cal)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/expand_globs)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/expand_globs_py)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/line)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/line_dashed)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/rename)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/rrmdir)"
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/sel)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/shot)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/vipe)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/xpose)"
@@ -45,7 +45,7 @@ hub_update:
 	@#######################################
 	@#              ARCHIVED               #
 	@#######################################
-	@#hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/sel)"
+	#@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/cal)"
 
 hub_init:
 	rm -f "${HOME}"/.local/bin/expand_globs
