@@ -45,7 +45,7 @@ hub_update:
 	@#######################################
 	@#              ARCHIVED               #
 	@#######################################
-	#@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/cal)"
+	@#hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/cal)"
 
 hub_init:
 	rm -f "${HOME}"/.local/bin/expand_globs
