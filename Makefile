@@ -60,6 +60,7 @@ hub_update:
 	@### init utils.
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/initers/godot4_init)"
 	@### rename utils.
+	@#hub_ctrl ${HUB_MODE} ln "${HOME}/.local/bin/names_creationDate+format"   "${HOME}/.local/bin/names" # FIXME
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/name_formatter)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_creationDate+format)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_creationDate)"
@@ -68,8 +69,6 @@ hub_update:
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_format)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/rename_num.py)"   "${HOME}/.local/bin/rename_numbering"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/rename_scans.sh)" "${HOME}/.local/bin/rename_scans"
-	@# FIXME.
-	@#hub_ctrl ${HUB_MODE} ln "${HOME}/.local/bin/names_creationDate+format"   "${HOME}/.local/bin/names"
 	@### stats utils.
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/stats/moon)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/stats/sun)"
