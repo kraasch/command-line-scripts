@@ -1,0 +1,10 @@
+#!/bin/bash
+
+function find_aud() {
+	local file=./playlist_"$(makeid 20)"
+	find . -type f | grep -iE ".(mp3|ogg|wav)$" >"$file"
+	mpv --playlist="$file"
+	rm "$file"
+}
+
+find_aud

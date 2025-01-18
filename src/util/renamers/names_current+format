@@ -1,0 +1,18 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+
+function name_to_current() {
+	prefix=$(date +%F)
+	pretty=$(name_formatter "$@")
+	newName="${prefix}_${pretty}"
+	mv "$@" "$newName"
+}
+
+function main() {
+	while read -r x; do
+		name_to_current "$x"
+	done
+}
+
+main

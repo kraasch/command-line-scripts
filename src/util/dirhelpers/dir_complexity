@@ -1,0 +1,22 @@
+#!/bin/bash
+
+function main() {
+	echo "depth (complexity) size name" | tr ' ' $'\t'
+	for x in *; do
+		if $(test ! -d "$x"); then
+			continue
+		fi
+		line=$(
+			find "$x" -type d |
+				sed -E 's,[^/],,g' |
+				sort
+		)
+		num="$line"
+		line=$(echo "$line" | uniq -c | tail | sed 's/ [ ]*/ /g')
+		depth=$(echo "$line" | cut -d" " -f 3)
+		size=$(du -sh "$x" | cut -d $'\t' -f 1)
+		echo "${#depth} (${#num}) $size $x." | tr ' ' $'\t'
+	done | sort -n
+}
+
+main

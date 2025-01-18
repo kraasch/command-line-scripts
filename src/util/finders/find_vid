@@ -1,0 +1,10 @@
+#!/bin/bash
+
+function find_vid() {
+	local file=./playlist_"$(makeid 20)"
+	find . -type f | grep -iE ".(mp4|avi|mkv|mov)$" >"$file"
+	mpv --playlist="$file"
+	rm "$file"
+}
+
+find_vid

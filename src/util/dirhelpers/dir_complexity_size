@@ -1,0 +1,3 @@
+#!/bin/bash
+
+paste <(du -s *) <(du -sh *) | sort -n | sed 's/.[^\t]*\t.[^\t]*//'

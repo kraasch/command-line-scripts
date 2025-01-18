@@ -1,0 +1,24 @@
+#!/bin/bash
+
+function main() {
+	# check for git directories before attempting to flatten.
+	has_git=$(find . -type d | grep '/.git/')
+
+	# if current directory tree contains at least 1 git directory, abort.
+	if $(test -n "$has_git"); then
+		echo "Warning: has .git direcotries."
+		return 1
+	fi
+
+	# rename all files.
+	find . -mindepth 1 -type f | while IFS= read -r x; do
+		in_name="$x"
+		out_name=$(echo "$x" | sed 's|./||' | tr '/' '_' | tr ' ' '-' | tr -d '\n' | tr 'A-Z' 'a-z' | sed 's/---/_/g' | sed 's/-[-]*/-/g')
+		mv "$in_name" "$out_name"
+	done
+
+	# remove all emtpy direcotries.
+	rrmdir
+}
+
+main

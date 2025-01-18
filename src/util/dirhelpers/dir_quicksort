@@ -1,0 +1,26 @@
+#!/bin/bash
+
+mkdir MISCZ
+mkdir TXTZ
+mkdir DOCZ
+mkdir VIDZ
+mkdir IMGZ
+mkdir MP3Z
+
+mv *.jpg *.png *.jpeg IMGZ/
+mv *.JPG *.PNG *.JPEG IMGZ/
+
+mv *.mp4 *.flv VIDZ/
+mv *.MP4 *.FLV VIDZ/
+
+mv *.pdf DOCZ/
+mv *.PDF DOCZ/
+
+mv *.tex *.txt *..md TXTZ/
+mv *.TEX *.TXT *..MD TXTZ/
+
+mv *.odt *.doc *.docx MISCZ/
+mv *.ODT *.DOC *.DOCX MISCZ/
+
+mv *.mp3 *.odd *.wav MP3Z/
+mv *.MP3 *.ODD *.WAV MP3Z/

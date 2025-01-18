@@ -1,0 +1,29 @@
+#!/bin/bash
+
+from="$1"
+to="$2"
+
+if $(test -z "$from") || $(test -z "$to"); then
+	# echo usage synopsis if wrong arguments.
+	echo 'Usage: dir_sel_mv from/ to/'
+fi
+
+function main() {
+
+	# create to directory if not exists.
+	if $(test ! -d "$to"); then
+		mkdir -p "$to"
+	fi
+
+	# warn if from directory doesnt exist.
+	if $(test ! -d "$from"); then
+		echo 'Warning: no directory to read files from.'
+		return 0
+	fi
+
+	find "$from" -type f | vipe | while read x; do
+		mv "$x" "$to"
+	done
+}
+
+main

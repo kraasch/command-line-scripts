@@ -1,0 +1,7 @@
+#!/bin/bash
+
+function find_img() {
+	find . -type f | grep -iE ".(png|jpg|jpeg)$" | sxiv -
+}
+
+find_img

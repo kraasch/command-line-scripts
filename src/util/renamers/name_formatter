@@ -1,0 +1,8 @@
+#!/bin/bash
+
+function main() {
+	suffix=$(stat -c '%n' "$@" | tr ' ' '-' | tr -d '\n' | tr -c '[:alnum:]._-' '-' | tr 'A-Z' 'a-z' | tr ' ' '-' | sed 's/--[-]*/_/g')
+	echo "$suffix"
+}
+
+main "$@"

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# get all the file endings that re not too long.
+endings=$(find . -type f | grep -o "[^.]*$" | grep -v "....." | sort | uniq)
+
+# make a bucket directory for each file ending.
+echo "$endings" | xargs -I{} mkdir -p "{}z"
+
+# move all files into the bucket directory.
+echo "$endings" | while read x; do
+	for y in *"$x"; do
+		mv "$y" "${x}z"
+	done
+done
+
+# move the rest of the files into MISC.
+mkdir -p misc
+find . -maxdepth 1 -mindepth 1 -type f | xargs -I{} mv "{}" misc

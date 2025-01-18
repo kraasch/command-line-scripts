@@ -1,0 +1,15 @@
+#!/bin/bash
+
+function name_to_creation_dateOnly() {
+	prefix=$(stat -c '%y' "$@" | tr ' ' '_' | tr -c '[:alnum:]._-' '-' | sed 's/_.*//') # for cutting after date.
+	newName="${prefix}_${@}"
+	mv "$@" "$newName"
+}
+
+function main() {
+	while read -r x; do
+		name_to_creation_dateOnly "$x"
+	done
+}
+
+main

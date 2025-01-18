@@ -1,0 +1,19 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+
+function name_to_creation() {
+	x="$@"
+	prefix=$(stat -c '%y' "$x" | tr ' ' '_' | tr -c '[:alnum:]._-' '-' | sed 's/_.*//') # for cutting after date.
+	pretty=$(name_formatter "$@")
+	newName="${prefix}_${pretty}"
+	mv "$@" "$newName"
+}
+
+function main() {
+	while read -r x; do
+		name_to_creation "$x"
+	done
+}
+
+main

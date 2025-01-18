@@ -1,0 +1,83 @@
+#!/usr/bin/python3
+
+# program description: calculates the today's sunrise and sunset.
+
+# https://docs.astropy.org/en/stable/api/astropy.coordinates.EarthLocation.html
+# https://stackoverflow.com/questions/34952552/is-there-a-sunset-sunrise-function-built-into-astropy-yet
+# https://docs.astropy.org/en/stable/api/astropy.coordinates.AltAz.html
+# https://www.timeanddate.com/worldclock/sunearth.html
+# https://snyk.io/advisor/python/astroplan/functions/astroplan.Observer
+# https://astroplan.readthedocs.io/en/latest/api/astroplan.Observer.html
+#
+# https://astroplan.readthedocs.io/en/latest/faq/precision.html
+# https://github.com/astropy/astroplan/issues/242
+# https://notebook.community/bmorris3/gsoc2015/riseset
+
+# NOTE: run:
+# sudo apt install python3-astropy
+# sudo python3 -m pip install astroplan
+
+from astropy.time import Time
+from astropy.coordinates import AltAz
+from astropy.coordinates import EarthLocation
+from astropy.coordinates import get_sun
+from datetime import datetime
+from astropy.coordinates import Longitude, Latitude
+from astropy.units import Quantity
+
+from astroplan import Observer
+import astropy.units as u
+
+# source: https://vimhelp.org/digraph.txt.html
+# TODO: calculate longitude and latitude using the internet or something.
+# TODO: move the marker on the world map accourding to global position data.
+# TODO: mark the current sun phase.
+# TODO: mark the curren position of the moon.
+# TODO: show the current moon phase as icon.
+print('┌' + "────────────────────────" + '┐')
+print('│' + "1 9876-4321 1234+6789 12" + '│')
+print('├' + "───────────▼────────────" + '┤')
+print('│' + "    _,--._  _._.--.--.._" + '│')
+print('▶' + "=.--'=_',-,▣`;_      .,'" + '◀')
+print('│' + ",-.  _.)  (``-;_   .'   " + '│')
+print('│' + "   '-:_    `) ) v''=.   " + '│')
+print('│' + "     ) )    ()'    ='   " + '│')
+print('│' + "     |/            (_) =" + '│')
+print('├' + "───────────▲────────────" + '┤')
+print('│' + "   ☼            ●       " + '│')
+print('└' + "────────────────────────" + '┘')
+# TODO: print additional info:
+# TODO: - [ ] today's sunset time for marked location (lat and lon).
+# TODO: - [ ] today's sunrise time for marked location (lat and lon).
+# TODO: - [ ] current utc time.
+# TODO: - [ ] current local time.
+
+# current time.
+import arrow
+utc = arrow.utcnow()
+local = utc.to('Europe/Berlin')
+now_local=local.format('YYYY-MM-DD HH:mm:ss ZZ')
+print(f"now local:    {now_local}")
+
+# approach #1 calculate with astropy.
+lon = Longitude('9.993682 deg')
+lat = Latitude('53.551086 deg')
+height = Quantity('27 meter')
+my_location=EarthLocation.from_geodetic(lon=lon.value, lat=lat.value, height=height.value)
+now = Time(datetime.utcnow(), format='datetime', scale='utc') # the time now.
+altazframe = AltAz(obstime=now, location=my_location) # the current location in space.
+sunaltaz = get_sun(now).transform_to(altazframe) # get_sun --> the current location of the sun. transform_to --> ???
+orientation = sunaltaz.alt.value # NOTE 'sunaltaz.alt.value' is zero during sunrise.
+print(f"now utc:      {now}")
+
+#print(f"latitude:     {lat}")
+#print(f"longitude:    {lon}")
+#print(f"sun position: {orientation}")
+
+# approach #2 calculate using the astroplan package.
+hamburg = Observer(longitude=-9.994*u.deg, latitude=53.551*u.deg, elevation=27*u.m, name="Hamburg", timezone="Europe/Berlin")
+sunrise_time = hamburg.sun_rise_time(time=now).to_value(format='datetime')
+sunset_time = hamburg.sun_set_time(time=now).to_value(format='datetime')
+print(f"sunrise time: {sunrise_time}")
+print(f"sunset time:  {sunset_time}")
+

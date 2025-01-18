@@ -1,0 +1,77 @@
+#! /bin/bash
+
+# program description: gets weather data from teh web and displays it.
+
+tempfile=~/.weather-data
+tempfile2=~/.weather-data.tmp
+args="$@"
+
+debug=''
+if $(test "$args" == '--debug'); then
+	debug='1'
+fi
+
+force=''
+if $(test "$args" == '--force'); then
+	force='1'
+fi
+
+function update_data() {
+	if $(test -n "$debug"); then
+		echo 'debug: contacting wttr.in'
+	fi
+	response=$(curl -s 'https://wttr.in/Hamburg?T' 3>/dev/null 2>/dev/null | head -7 | tail -5)
+	has_error=$(echo "$response" | grep 'running out of queries')
+	if $(test -z "$has_error"); then
+		echo "$response" >"$tempfile"
+	else
+		(
+			echo '?'
+			cat "$tempfile"
+		) >"$tempfile2"
+		mv "$tempfile" "$tempfile2"
+	fi
+}
+
+function main() {
+
+	# if force option is set, force an update and exit.
+	if $(test -n "$force"); then
+		cat "$tempfile"
+		update_data
+		cat "$tempfile"
+		return
+	fi
+
+	if $(test -f "$tempfile"); then
+		if $(test -n "$debug"); then
+			echo 'debug: file exists.'
+		fi
+		tdiff=$(($(date +%s) - $(stat -c %Y $tempfile))) # time in seconds of now minus the file mod time in seconds.
+		hours=1                                          # every hour.
+		seconds=$((60 * 60 * $hours))
+		if $(test $tdiff -ge $seconds); then
+			if $(test -n "$debug"); then
+				echo 'debug: renew old file.'
+			fi
+			# data is older than some seconds, make a new web request.
+			rm "$tempfile"
+			update_data
+		fi
+	else
+		if $(test -n "$debug"); then
+			echo 'debug: file does not exists.'
+		fi
+		# no data exists, make a new web request.
+		update_data
+	fi
+
+	if $(test -f "$tempfile"); then
+		if $(test -n "$debug"); then
+			echo 'debug: showing file.'
+		fi
+		cat "$tempfile"
+	fi
+}
+
+main

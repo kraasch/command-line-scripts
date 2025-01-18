@@ -1,0 +1,10 @@
+#!/bin/bash
+
+function main() {
+	while read -r x; do
+		pretty=$(name_formatter "$x")
+		mv "$x" "$pretty"
+	done
+}
+
+main
