@@ -13,9 +13,6 @@ hub_update:
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/vipe)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/xpose)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/xpose_rm)"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/cli_text/box)"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/cli_text/comment)"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/cli_text/putOnText)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/hack/toAscii)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/hack/toBinary)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/language+culture/chin_s2t)"
@@ -27,6 +24,9 @@ hub_update:
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/nicetohave/natofy)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/nicetohave/shot)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/nicetohave/tmr)"
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/text_format/box)"
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/text_format/comment)"
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/text_format/putOnText)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/curl/web_goodreads)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/curl/web_pixabay)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/curl/web_pwnedpasswords)"
@@ -42,10 +42,6 @@ hub_update:
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/python/py_requirements_install)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/python_requests/web_tatoeba)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/wrappers/ytdlp/yt_id2duration)"
-	@#######################################
-	@#              FIX PATH               #
-	@#######################################
-	@### dir utils
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/dirhelpers/dir_complexity)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/dirhelpers/dir_complexity_size)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/dirhelpers/dir_flatten)"
@@ -53,29 +49,24 @@ hub_update:
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/dirhelpers/dir_sel_mv)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/dirhelpers/dir_buckets)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/dirhelpers/dir_clean_dead-links)"
-	@### find utils.
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/finders/find_aud)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/finders/find_img)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/finders/find_vid)"
-	@### init utils.
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/initers/godot4_init)"
-	@### rename utils.
-	@#hub_ctrl ${HUB_MODE} ln "${HOME}/.local/bin/names_creationDate+format"   "${HOME}/.local/bin/names" # FIXME
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/name_formatter)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_creationDate+format)"
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_creationDate+format)"     "${HOME}/.local/bin/names" # additional shorter alias.
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_creationDate)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_creationPrecise+format)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_current+format)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_format)"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/rename_num.py)"   "${HOME}/.local/bin/rename_numbering"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/rename_scans.sh)" "${HOME}/.local/bin/rename_scans"
-	@### stats utils.
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/rename_num.py)"                 "${HOME}/.local/bin/rename_numbering"
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/rename_scans.sh)"               "${HOME}/.local/bin/rename_scans"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/stats/moon)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/stats/sun)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/stats/weather)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/stats/upgrade_status)"
-	@### plot utils.
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/plotters/plot_bars.py)"    "${HOME}/.local/bin/plot_bars"
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/plotters/plot_bars.py)"                  "${HOME}/.local/bin/plot_bars"
 	@#######################################
 	@#              ARCHIVED               #
 	@#######################################
