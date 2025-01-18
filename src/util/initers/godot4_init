@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# make directory sturcture for exports.
+mkdir ./export/
+mkdir ./export/channels
+echo -e "web:\n\titch_butler_wrapper web html $ITCH_USERNAME new-game --non-interactive" >>./export/Makefile
+
+# make directory sturcture for code and assets.
+mkdir ./data
+mkdir ./data/assets
+mkdir ./data/src
+
+mkdir ./data/src/behaviors
+mkdir ./data/src/scenes
+
+mv icon.svg* ./data/assets/export
+
+# setup git.
+echo -e "# my ignores.\nexport/channels/" >>./.gitignore
+git init
+git add .
+git commit -m "Init."
