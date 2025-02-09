@@ -62,8 +62,6 @@ hub_update:
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_format)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/rename_num.py)"                 "${HOME}/.local/bin/rename_numbering"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/rename_scans.sh)"               "${HOME}/.local/bin/rename_scans"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/stats/moon)"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/stats/sun)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/stats/weather)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/stats/upgrade_status)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/plotters/plot_bars.py)"                  "${HOME}/.local/bin/plot_bars"
