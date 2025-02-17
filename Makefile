@@ -6,7 +6,6 @@ hub_update:
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/expand_globs_py)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/line)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/line_dashed)"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/rename)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/rrmdir)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/sel)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/shot)"
@@ -53,6 +52,13 @@ hub_update:
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/finders/find_img)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/finders/find_vid)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/initers/godot4_init)"
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/stats/weather)"
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/stats/upgrade_status)"
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/plotters/plot_bars.py)"                  "${HOME}/.local/bin/plot_bars"
+	@#######################################
+	@#        SOON TO BE ARCHIVED          #
+	@#######################################
+	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/rename)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/name_formatter)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_creationDate+format)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_creationDate+format)"     "${HOME}/.local/bin/names" # additional shorter alias.
@@ -62,9 +68,6 @@ hub_update:
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_format)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/rename_num.py)"                 "${HOME}/.local/bin/rename_numbering"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/rename_scans.sh)"               "${HOME}/.local/bin/rename_scans"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/stats/weather)"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/stats/upgrade_status)"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/plotters/plot_bars.py)"                  "${HOME}/.local/bin/plot_bars"
 	@#######################################
 	@#              ARCHIVED               #
 	@#######################################
