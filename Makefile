@@ -56,22 +56,19 @@ hub_update:
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/stats/upgrade_status)"
 	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/plotters/plot_bars.py)"                  "${HOME}/.local/bin/plot_bars"
 	@#######################################
-	@#        SOON TO BE ARCHIVED          #
-	@#######################################
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/rename)"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/name_formatter)"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_creationDate+format)"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_creationDate+format)"     "${HOME}/.local/bin/names" # additional shorter alias.
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_creationDate)"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_creationPrecise+format)"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_current+format)"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_format)"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/rename_num.py)"                 "${HOME}/.local/bin/rename_numbering"
-	@hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/rename_scans.sh)"               "${HOME}/.local/bin/rename_scans"
-	@#######################################
 	@#              ARCHIVED               #
 	@#######################################
 	@#hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/cal)"
+	@#hub_ctrl ${HUB_MODE} ln "$(realpath ./src/core/rename)"
+	@#hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/name_formatter)"
+	@#hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_creationDate+format)"
+	@#hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_creationDate+format)"     "${HOME}/.local/bin/names" # additional shorter alias.
+	@#hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_creationDate)"
+	@#hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_creationPrecise+format)"
+	@#hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_current+format)"
+	@#hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/names_format)"
+	@#hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/rename_num.py)"                 "${HOME}/.local/bin/rename_numbering"
+	@#hub_ctrl ${HUB_MODE} ln "$(realpath ./src/util/renamers/rename_scans.sh)"               "${HOME}/.local/bin/rename_scans"
 
 hub_init:
 	rm -f "${HOME}"/.local/bin/expand_globs
